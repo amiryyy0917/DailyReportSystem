@@ -70,14 +70,14 @@ public class EmployeeController {
     		model.addAttribute("employee", employeeService.findByCode(code));
 
 
-    		employeeService.save(employee);
+    		employeeService.update(employee);
 
 
 
     	}else {
 
     	 try {
-             ErrorKinds result = employeeService.save(employee);
+             ErrorKinds result = employeeService.update(employee);
 
              if (ErrorMessage.contains(result)) {
                  model.addAttribute("employee", employee);
@@ -92,9 +92,6 @@ public class EmployeeController {
          }
 
     	}
-
-
-
 
 
     	return "redirect:/employees";

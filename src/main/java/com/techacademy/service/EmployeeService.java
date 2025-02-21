@@ -87,13 +87,31 @@ public class EmployeeService {
 
 
 
-   //1件検索して返す
+   //従業員更新
+    @Transactional
+    public ErrorKinds update(Employee employee) {
 
-    public Employee getEmployee(String code){
+        // パスワードチェック
+        ErrorKinds result = employeePasswordCheck(employee);
+        if (ErrorKinds.CHECK_OK != result) {
+            return result;
+        }
 
-    return employeeRepository.findById(code).get();
 
+
+        employee.setDeleteFlg(false);
+
+        LocalDateTime now = LocalDateTime.now();
+
+        employee.setUpdatedAt(now);
+
+        employeeRepository.save(employee);
+        return ErrorKinds.SUCCESS;
     }
+
+
+
+
 
 
 
