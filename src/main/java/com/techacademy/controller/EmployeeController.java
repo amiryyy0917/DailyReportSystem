@@ -65,16 +65,18 @@ public class EmployeeController {
     @PostMapping(value = "/{code}/update")
     public String update(Employee employee,@PathVariable("code")String code,BindingResult res,Model model) {
 
-    	if ("".equals(employee.getPassword())) {
+
 
     		model.addAttribute("employee", employeeService.findByCode(code));
 
 
-    		employeeService.update(employee);
+
+    		employeeService.password(code,employee);
 
 
 
-    	}else {
+
+
 
     	 try {
              ErrorKinds result = employeeService.update(employee);
@@ -91,7 +93,6 @@ public class EmployeeController {
              return "employees/update";
          }
 
-    	}
 
 
     	return "redirect:/employees";

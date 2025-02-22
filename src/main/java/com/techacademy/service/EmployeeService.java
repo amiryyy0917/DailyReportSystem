@@ -89,7 +89,30 @@ public class EmployeeService {
 
    //従業員更新
     @Transactional
+
+
+    public  Employee password(String code,Employee employee) {
+
+    	employeeRepository.findById(code).get();
+
+       if ("".equals(employee.getPassword())) {
+
+
+
+    		employee.setPassword(code);
+    	}
+
+           return employee;
+
+    	}
+
+
+
     public ErrorKinds update(Employee employee) {
+
+
+
+
 
         // パスワードチェック
         ErrorKinds result = employeePasswordCheck(employee);
@@ -101,12 +124,18 @@ public class EmployeeService {
 
         employee.setDeleteFlg(false);
 
+
+
         LocalDateTime now = LocalDateTime.now();
 
         employee.setUpdatedAt(now);
 
         employeeRepository.save(employee);
+
+
         return ErrorKinds.SUCCESS;
+
+
     }
 
 
