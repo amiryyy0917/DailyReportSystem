@@ -91,25 +91,23 @@ public class EmployeeService {
     @Transactional
 
 
-    public  Employee password(String code,Employee employee) {
+
+
+
+
+    public ErrorKinds update(String code,Employee employee) {
+
 
     	employeeRepository.findById(code).get();
 
-       if ("".equals(employee.getPassword())) {
+        if ("".equals(employee.getPassword())) {
 
 
 
-    		employee.setPassword(code);
-    	}
+        	Employee employeeFromDb= findByCode(code);
+        	String password = employeeFromDb.getPassword();
 
-           return employee;
-
-    	}
-
-
-
-    public ErrorKinds update(Employee employee) {
-
+     	}
 
 
 
@@ -137,11 +135,6 @@ public class EmployeeService {
 
 
     }
-
-
-
-
-
 
 
 

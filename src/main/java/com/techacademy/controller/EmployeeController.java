@@ -51,7 +51,7 @@ public class EmployeeController {
 
     //従業員更新画面
     @GetMapping(value="/{code}/update")
-    public String edit(@PathVariable("code")String code,Model model){
+    public String edit(@PathVariable("code")String code,Model model,Employee employee){
 
     	model.addAttribute("employee", employeeService.findByCode(code));
 
@@ -67,19 +67,30 @@ public class EmployeeController {
 
 
 
-    		model.addAttribute("employee", employeeService.findByCode(code));
+           if ("".equals(employee.getPassword())) {
 
 
 
-    		employeeService.password(code,employee);
+
+               model.addAttribute("employee", employeeService.findByCode(code));
+
+               Employee employeeCode= employeeService.findByCode(code);
+
+               employee.setPassword(employeeCode.getPassword());
 
 
+               return "redirect:/employees";
 
+           }
+
+    		 if (res.hasErrors()) {
+    	            return edit(code,model,employee);
+    	        }
 
 
 
     	 try {
-             ErrorKinds result = employeeService.update(employee);
+             ErrorKinds result = employeeService.update(code,employee);
 
              if (ErrorMessage.contains(result)) {
                  model.addAttribute("employee", employee);
