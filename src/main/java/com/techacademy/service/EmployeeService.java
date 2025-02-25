@@ -93,27 +93,23 @@ public class EmployeeService {
 
     public ErrorKinds update(Employee employee,String code) {
 
+    	Employee employeeFromDb= findByCode(code);
+
     	 if ("".equals(employee.getPassword())) {
 
-
-    	Employee employeeFromDb= findByCode(code);
     	String password = employeeFromDb.getPassword();
+    	employee.setPassword(password);
 
+    	 }else {
+
+    		// パスワードチェック
+    		 ErrorKinds result = employeePasswordCheck(employee);
+ 			if (ErrorKinds.CHECK_OK != result) {
+ 				return result;
+ 			}
     	 }
 
 
-
-
-        // パスワードチェック
-        ErrorKinds result = employeePasswordCheck(employee);
-        if (ErrorKinds.CHECK_OK != result) {
-            return result;
-        }
-
-        // 従業員番号重複チェック
-        if (findByCode(employee.getCode()) != null) {
-            return ErrorKinds.DUPLICATE_ERROR;
-        }
 
 
         employee.setDeleteFlg(false);
@@ -121,7 +117,7 @@ public class EmployeeService {
 
 
         LocalDateTime now = LocalDateTime.now();
-
+        employee.setCreatedAt(employeeFromDb.getCreatedAt());
         employee.setUpdatedAt(now);
 
         employeeRepository.save(employee);

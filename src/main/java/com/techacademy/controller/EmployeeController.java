@@ -69,7 +69,7 @@ public class EmployeeController {
 
     	// パスワード空白チェック
 
-        if ("".equals(employee.getPassword())) {
+        /*if ("".equals(employee.getPassword())) {
             // パスワードが空白だった場合
 
 
@@ -89,7 +89,7 @@ public class EmployeeController {
 
 
 
-    }
+    }*/
 
         // 入力チェック
         if (res.hasErrors()) {
