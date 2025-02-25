@@ -91,23 +91,15 @@ public class EmployeeService {
     @Transactional
 
 
+    public ErrorKinds update(Employee employee,String code) {
+
+    	 if ("".equals(employee.getPassword())) {
 
 
+    	Employee employeeFromDb= findByCode(code);
+    	String password = employeeFromDb.getPassword();
 
-
-    public ErrorKinds update(String code,Employee employee) {
-
-
-    	employeeRepository.findById(code).get();
-
-        if ("".equals(employee.getPassword())) {
-
-
-
-        	Employee employeeFromDb= findByCode(code);
-        	String password = employeeFromDb.getPassword();
-
-     	}
+    	 }
 
 
 
@@ -118,6 +110,10 @@ public class EmployeeService {
             return result;
         }
 
+        // 従業員番号重複チェック
+        if (findByCode(employee.getCode()) != null) {
+            return ErrorKinds.DUPLICATE_ERROR;
+        }
 
 
         employee.setDeleteFlg(false);

@@ -1,6 +1,7 @@
 package com.techacademy.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -63,51 +64,59 @@ public class EmployeeController {
 
     //従業員更新処理
     @PostMapping(value = "/{code}/update")
-    public String update(Employee employee,@PathVariable("code")String code,BindingResult res,Model model) {
+    public String update(@Validated Employee employee, BindingResult res, Model model,@PathVariable("code") String code) {
+
+
+    	// パスワード空白チェック
+
+        if ("".equals(employee.getPassword())) {
+            // パスワードが空白だった場合
 
 
 
-           if ("".equals(employee.getPassword())) {
+        	model.addAttribute("employee", employeeService.findByCode(code));
+
+        	Employee employeeCode= employeeService.findByCode(code);
+
+            employee.setPassword(employeeCode.getPassword());
+
+            employeeService.update(employee,code);
+
+
+
+            return "redirect:/employees";
 
 
 
 
-               model.addAttribute("employee", employeeService.findByCode(code));
-
-               Employee employeeCode= employeeService.findByCode(code);
-
-               employee.setPassword(employeeCode.getPassword());
-
-
-               return "redirect:/employees";
-
-           }
-
-    		 if (res.hasErrors()) {
-    	            return edit(code,model,employee);
-    	        }
-
-
-
-    	 try {
-             ErrorKinds result = employeeService.update(code,employee);
-
-             if (ErrorMessage.contains(result)) {
-                 model.addAttribute("employee", employee);
-                 model.addAttribute(ErrorMessage.getErrorName(result), ErrorMessage.getErrorValue(result));
-                 return "employees/update";
-             }
-
-         } catch (DataIntegrityViolationException e) {
-             model.addAttribute(ErrorMessage.getErrorName(ErrorKinds.DUPLICATE_EXCEPTION_ERROR),
-                     ErrorMessage.getErrorValue(ErrorKinds.DUPLICATE_EXCEPTION_ERROR));
-             return "employees/update";
-         }
-
-
-
-    	return "redirect:/employees";
     }
+
+        // 入力チェック
+        if (res.hasErrors()) {
+            return edit(code,model,employee);
+        }
+
+        // 論理削除を行った従業員番号を指定すると例外となるためtry~catchで対応
+        // (findByIdでは削除フラグがTRUEのデータが取得出来ないため)
+        try {
+            ErrorKinds result = employeeService.update(employee,code);
+
+            if (ErrorMessage.contains(result)) {
+                model.addAttribute(ErrorMessage.getErrorName(result), ErrorMessage.getErrorValue(result));
+                return edit(code,model,employee);
+            }
+
+        } catch (DataIntegrityViolationException e) {
+            model.addAttribute(ErrorMessage.getErrorName(ErrorKinds.DUPLICATE_EXCEPTION_ERROR),
+                    ErrorMessage.getErrorValue(ErrorKinds.DUPLICATE_EXCEPTION_ERROR));
+            return edit(code,model,employee);
+        }
+
+        return "redirect:/employees";
+    }
+
+
+
 
 
 
