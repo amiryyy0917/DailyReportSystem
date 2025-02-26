@@ -1,4 +1,4 @@
-<!--><!DOCTYPE html>
+<!DOCTYPE html>
 <html class="h-100" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="common/header :: head_fragment(title=日報詳細)"></head>
@@ -25,27 +25,29 @@
                                 <table class="table table-striped">
                                     <tr>
                                         <th class="w-25">日付</th>
-                                        <td class="align-middle" th:text="${#temporals.format(employee.createdAt, 'yyyy-MM-dd ')}"></td>
+                                        <td class="align-middle" th:text="${#temporals.format(report.createdAt, 'yyyy-MM-dd ')}"></td>
                                     </tr>
                                     <tr>
                                         <th>氏名</th>
-                                        <td class="align-middle" th:text="${employee.name}"></td>
+                                        <td class="align-middle" th:text="${report.name}"></td>
                                     </tr>
                                     <tr>
                                         <th>タイトル</th>
-                                        <td class="align-middle" th:text="${employee.title}"></td>
+                                        <td class="align-middle" th:text="${report.title}"></td>
                                     </tr>
                                     <tr>
                                         <th>内容</th>
-                                        <td class="align-middle" th:text="${employee.report}"></td>
+								        <pre>
+                                        <td class="align-middle" th:text="${report.content}"></td>
+										</pre>
                                     </tr>
 									<tr>
 									    <th>登録日時</th>
-									    <td class="align-middle" th:text="${#temporals.format(employee.createdAt, 'yyyy-MM-dd hh:mm:ss')}"></td>
+									    <td class="align-middle" th:text="${#temporals.format(report.createdAt, 'yyyy-MM-dd hh:mm:ss')}"></td>
 									</tr>
                                     <tr>
                                         <th>更新日時</th>
-                                        <td class="align-middle" th:text="${#temporals.format(employee.updatedAt, 'yyyy-MM-dd hh:mm:ss')}"></td>
+                                        <td class="align-middle" th:text="${#temporals.format(report.updatedAt, 'yyyy-MM-dd hh:mm:ss')}"></td>
                                     </tr>
                                 </table>
                                 <div class="mt-5 row g-1">
@@ -74,4 +76,4 @@
 
 </body>
 
-</html><-->
+</html>
