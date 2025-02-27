@@ -1,6 +1,7 @@
-package com.techacademy.service;
+package service;
 
 import java.time.LocalDateTime;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -10,10 +11,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.techacademy.constants.ErrorKinds;
-import com.techacademy.entity.Employee;
-import com.techacademy.entity.Report;
-import com.techacademy.repository.ReportRepository;
+import constants.ErrorKinds;
+import entity.Employee;
+import entity.Report;
+import repository.ReportRepository;
 
 @Service
 public class ReportService {
@@ -33,7 +34,7 @@ public class ReportService {
 
 
         // 従業員番号重複チェック
-        if (findByCode(report.getID()) != null) {
+        if (findByCode(report.getId()) != null) {
             return ErrorKinds.DUPLICATE_ERROR;
         }
 

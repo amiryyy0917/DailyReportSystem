@@ -1,14 +1,15 @@
-package com.techacademy.service;
+package service;
 
 import java.util.Optional;
+
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.techacademy.entity.Employee;
-import com.techacademy.repository.EmployeeRepository;
+import entity.Employee;
+import repository.EmployeeRepository;
 
 @Service
 public class UserDetailService implements UserDetailsService {

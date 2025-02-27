@@ -1,4 +1,4 @@
-package com.techacademy.constants;
+package constants;
 
 // エラーメッセージ定義
 public enum ErrorKinds {

@@ -1,8 +1,9 @@
-package com.techacademy.repository;
+package repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.techacademy.entity.Employee;
+
+import entity.Employee;
 
 public interface EmployeeRepository extends JpaRepository<Employee, String> {
 }

@@ -1,6 +1,8 @@
-package com.techacademy.entity;
+package entity;
 
-import java.sql.Date;
+
+
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -10,8 +12,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,6 +21,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
@@ -27,55 +30,36 @@ import lombok.Data;
 @SQLRestriction("delete_flg = false")
 public class Report {
 
-   /* public static enum Role {
-        GENERAL("一般"), ADMIN("管理者");
-
-        private String name;
-
-        private Role(String name) {
-            this.name = name;
-        }
-
-        public String getValue() {
-            return this.name;
-        }
-    }*/
 
     // ID
     //AUTO_INCREMENTをつけたい
     @Id
-    @NotEmpty
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer ID;
+    private Integer id;
 
- // 名前
-    @Column(length = 20, nullable = false)
-    @NotEmpty
-    @Length(max = 20)
-    private String name;
 
     //日付
-    @NotEmpty
+    @NotNull
     @Column(nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate reportDate;
 
     // タイトル
-    @Column(length = 100, nullable = false)
+    @Column(columnDefinition="VARCHAR(100)", nullable = false)
     @NotEmpty
     @Length(max = 100)
     private String title;
 
     // 内容
-    @Column(columnDefinition="LONGTEXT")
+    @Column(columnDefinition="LONGTEXT",nullable = false)
     @NotEmpty
+    @Length(max = 600)
     private String content;
 
     //社員番号
     //FKつけたい
-    @Column(length = 10, nullable = false)
-    @NotEmpty
-    @Length(max = 10)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_code", referencedColumnName = "code", nullable = false)
     private String employeeCode;
 
     // 削除フラグ(論理削除を行うため)
@@ -90,7 +74,7 @@ public class Report {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-   /* @ManyToOne
+   /*@ManyToOne
     @JoinColumn(name = "employeeCode", referencedColumnName = "code", nullable = false)
     private Employee employee;*/
 
