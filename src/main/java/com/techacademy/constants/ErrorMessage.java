@@ -1,4 +1,4 @@
-package constants;
+package com.techacademy.constants;
 
 import java.util.ArrayList;
 import java.util.Arrays;

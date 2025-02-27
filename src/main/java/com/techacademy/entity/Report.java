@@ -1,4 +1,4 @@
-package entity;
+package com.techacademy.entity;
 
 
 
@@ -60,7 +60,8 @@ public class Report {
     //FKつけたい
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_code", referencedColumnName = "code", nullable = false)
-    private String employeeCode;
+
+    private Employee employee;
 
     // 削除フラグ(論理削除を行うため)
     @Column(columnDefinition="TINYINT", nullable = false)

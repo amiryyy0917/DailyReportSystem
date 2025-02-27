@@ -1,4 +1,4 @@
-package controller;
+package com.techacademy.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import constants.ErrorKinds;
-import constants.ErrorMessage;
+import com.techacademy.constants.ErrorKinds;
+import com.techacademy.constants.ErrorMessage;
 
-import entity.Report;
-
-import service.ReportService;
-import service.UserDetail;
+import com.techacademy.entity.Report;
+import com.techacademy.service.EmployeeService;
+import com.techacademy.service.ReportService;
+import com.techacademy.service.UserDetail;
 
 @Controller
 @RequestMapping("reports")
@@ -33,6 +33,7 @@ public class ReportController {
     @Autowired
     public ReportController(ReportService reportService) {
         this.reportService = reportService;
+
     }
 
     // 日報一覧画面

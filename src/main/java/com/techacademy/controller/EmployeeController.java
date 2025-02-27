@@ -1,6 +1,7 @@
-package controller;
+package com.techacademy.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 
 
 import org.springframework.dao.DataIntegrityViolationException;
@@ -15,12 +16,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import constants.ErrorKinds;
-import constants.ErrorMessage;
+import com.techacademy.constants.ErrorKinds;
+import com.techacademy.constants.ErrorMessage;
 
-import entity.Employee;
-import service.EmployeeService;
-import service.UserDetail;
+import com.techacademy.entity.Employee;
+import com.techacademy.service.EmployeeService;
+import com.techacademy.service.UserDetail;
+
 
 @Controller
 @RequestMapping("employees")
