@@ -31,6 +31,10 @@ import lombok.Data;
 public class Report {
 
 
+
+
+
+
     // ID
     //AUTO_INCREMENTをつけたい
     @Id
@@ -75,9 +79,6 @@ public class Report {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-   /*@ManyToOne
-    @JoinColumn(name = "employeeCode", referencedColumnName = "code", nullable = false)
-    private Employee employee;*/
 
 
 }

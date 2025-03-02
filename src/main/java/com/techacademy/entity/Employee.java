@@ -45,7 +45,7 @@ public class Employee {
     @Column(length = 10)
     @NotEmpty
     @Length(max = 10)
-    
+
     private String code;
 
     // 名前

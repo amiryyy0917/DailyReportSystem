@@ -11,7 +11,7 @@
         <div class="mt-3 h-100 col-sm-10">
             <!--コンテンツ  -->
             <div class="container-fluid p-0">
-                <h1 class="h3 mb-3">日報　一覧</h1>
+                <h1 class="h3 mb-3">日報一覧</h1>
 
                 <div class="row">
                     <div class="col-xl-11">
@@ -28,10 +28,10 @@
                                     </thead>
                                     <tbody>
                                         <tr th:each="report:${reportList}">
-                                            <td class="align-middle" th:text="${employeeCode.name}"></td>
+                                            <td class="align-middle" th:text="${report.employee.name}"></td>
                                             <td class="align-middle" th:text="${#temporals.format(report.createdAt, 'yyyy-MM-dd ')}"></td>
 											<td class="align-middle" th:text="${report.title}"></td>
-                                            <td class="align-middle"><a th:href="@{/reports/{ID}/(ID=${report.ID})}" class="btn btn-primary">詳細</a></td>
+                                            <td class="align-middle"><a th:href="@{/reports/{id}/(id=${report.id})}" class="btn btn-primary">詳細</a></td>
                                         </tr>
                                     </tbody>
                                 </table>
