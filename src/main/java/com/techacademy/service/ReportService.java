@@ -34,23 +34,11 @@ public class ReportService {
     @Transactional
     public ErrorKinds save(Report report,@AuthenticationPrincipal UserDetail userDetail) {
 
-    	//従業員情報
+
     	Employee log=userDetail.getEmployee();
-    	//入力された日付
 
 
-
-    	List<Report> s =reportRepository.findByEmployeeAndReportDate(log,report);
-
-
-
-        //ログイン中の従業員かつ入力した日付重複チェック
-    	if( findByEmployeeAndReportDate(log.getCode(), report.getReportDate())){
-            return ErrorKinds.DATECHECK_ERROR;
-        }
-
-
-
+    	report.setEmployee(log);
         report.setDeleteFlg(false);
 
         LocalDateTime now = LocalDateTime.now();
@@ -59,12 +47,28 @@ public class ReportService {
 
         reportRepository.save(report);
         return ErrorKinds.SUCCESS;
+
     }
 
 
-    private boolean findByEmployeeAndReportDate(String code, LocalDate reportDate) {
+    private boolean findByEmployeeAndReportDate(Report report,@AuthenticationPrincipal UserDetail userDetail) {
+
+
+    	//従業員情報
+    	Employee log=userDetail.getEmployee();
+    	//入力された日付
+    	LocalDate date=report.getReportDate();
+
+    	List<Report> s =reportRepository.findByEmployeeAndReportDate(log,date);
+
+    	//ログイン中の従業員かつ入力した日付重複チェック
+    	if(s != null){
+            return true;
+        }else {
+
 		// TODO 自動生成されたメソッド・スタブ
 		return false;
+        }
 	}
 
 	// 従業員削除
@@ -116,25 +120,9 @@ public class ReportService {
 
     public ErrorKinds update(Report report,int id,@AuthenticationPrincipal UserDetail userDetail) {
 
-    	//従業員情報
-    	Employee log=userDetail.getEmployee();
-    	//入力された日付
 
 
-
-    	List<Report> s =reportRepository.findByEmployeeAndReportDate(log,report);
-
-
-
-        //ログイン中の従業員かつ入力した日付重複チェック
-    	if( findByEmployeeAndReportDate(log.getCode(), report.getReportDate())){
-            return ErrorKinds.DATECHECK_ERROR;
-        }
-
-
-
-
-
+    	//report.setEmployee(log);
         report.setDeleteFlg(false);
 
 
